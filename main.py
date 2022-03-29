@@ -3,7 +3,7 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 from statsmodels.tsa.arima.model import ARIMA
 import pyotp
-import robin_stocks as robinhood
+import robin_stocks.robinhood as robin
 
 google = yf.Ticker("GOOG")
 
@@ -38,7 +38,8 @@ print(f'Predict data for time 1: {forecast}')
 
 RH_USER_EMAIL = input("Email: ")
 RH_PASSWORD = input('Password: ')
-RH_MFA_CODE = input('Code: ')
+RH_MFA_CODE = "HRZSQZ2EEMFBKCM6"
 
 timed_otp = pyotp.TOTP(RH_MFA_CODE).now()
-login = robinhood.login(RH_USER_EMAIL, RH_PASSWORD, mfa_code=timed_otp)
+login = robin.login(RH_USER_EMAIL, RH_PASSWORD, mfa_code=timed_otp)
+print('current opt: ', timed_otp)
