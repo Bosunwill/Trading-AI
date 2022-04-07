@@ -27,15 +27,23 @@ HEADERS = {"APCA-API-KEY-ID": API_KEY, "APCA-API-SECRET-KEY": SECRET_KEY}
 
 api = tradeapi.REST(API_KEY, SECRET_KEY, base_url, api_version='v2')
 
+def make_order(lst, qty=1):
+    for stock in lst:
+        api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
+        
+        
 
-
+def make_single_order(stock, qty=1):
+    api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
+    
+    
+stockList = ['APPS','GE','RGF','TSLA']
 
 # Setting parameters before calling method
 symbol = "SPY"
 timeframe = "1Day"
 start = "2022-01-01"
 end = "2022-04-05"
-
 
 
 spy_bars = api.get_bars(symbol, timeframe, start, end).df #datafrane from bars
@@ -54,3 +62,7 @@ print(opn)
 print(high)
 print(low)
 print(close)
+
+
+single = make_single_order('GOOG',25)
+multi_gets_list = make_order(stockList,25)
