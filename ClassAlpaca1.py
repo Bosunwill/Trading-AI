@@ -12,7 +12,6 @@ import matplotlib.pyplot as plt
 from statsmodels.tsa.arima.model import ARIMA
 # import pyotp
 from pmdarima import auto_arima
-import warnings
 
 
 base_url = "https://paper-api.alpaca.markets"
@@ -28,7 +27,6 @@ HEADERS = {"APCA-API-KEY-ID": API_KEY, "APCA-API-SECRET-KEY": SECRET_KEY}
 
 api = tradeapi.REST(API_KEY, SECRET_KEY, base_url, api_version='v2')
 
-warnings.filterwarnings("ignore")
 
 
 
@@ -37,18 +35,22 @@ symbol = "SPY"
 timeframe = "1Day"
 start = "2022-01-01"
 end = "2022-04-05"
+
+
+
+spy_bars = api.get_bars(symbol, timeframe, start, end).df #datafrane from bars
+
+
 # Retrieve daily bars for SPY in a dataframe and printing the first 5 rows
+print(spy_bars.head())
 
-
-spy_bars = api.get_bars(symbol, timeframe, start, end).df
 
 opn = spy_bars['open']
-
 high=spy_bars['high']
-
-low=spy_bars['low']
-               
+low=spy_bars['low'] 
 close=spy_bars['close']
 
-
-print(high,low)
+print(opn)
+print(high)
+print(low)
+print(close)
