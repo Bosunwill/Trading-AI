@@ -30,8 +30,6 @@ api = tradeapi.REST(API_KEY, SECRET_KEY, base_url, api_version='v2')
 def make_order(lst, qty=1):
     for stock in lst:
         api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
-        
-        
 
 def make_single_order(stock, qty=1):
     api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
@@ -41,7 +39,7 @@ stockList = ['APPS','GE','RGF','TSLA']
 
 # Setting parameters before calling method
 symbol = "SPY"
-timeframe = "1Day"
+timeframe = "1year"
 start = "2022-01-01"
 end = "2022-04-05"
 
@@ -58,11 +56,11 @@ high=spy_bars['high']
 low=spy_bars['low'] 
 close=spy_bars['close']
 
-print(opn)
-print(high)
-print(low)
-print(close)
+# print(opn)
+# print(high)
+# print(low)
+# print(close)
 
 
-single = make_single_order('GOOG',25)
-multi_gets_list = make_order(stockList,25)
+# single = make_single_order('GOOG',25)
+# multi_gets_list = make_order(stockList,25)
