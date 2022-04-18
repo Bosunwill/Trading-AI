@@ -18,7 +18,7 @@ base_url = "https://paper-api.alpaca.markets"
 ACCOUNT_URL = "{}/v2/account".format(base_url)
 ORDERS_URL = "{}/v2/orders".format(base_url)
 
-API_KEY = 'PKZQ8BRYNILCSQXE5XNH'
+API_KEY = 'PKZQ8BRYNILCSQXE5XNH'   #ask Jared about encryption of these
 SECRET_KEY = 'S8a4bqNLcfiZgk7uoKp4gbPbKYM8a92Cy2z3spMR'
 
 HEADERS = {"APCA-API-KEY-ID": API_KEY, "APCA-API-SECRET-KEY": SECRET_KEY}
@@ -27,68 +27,116 @@ api = tradeapi.REST(API_KEY, SECRET_KEY, base_url, api_version='v2')
 account = api.get_account()
 
 
-def make_order_basic(lst, qty=1):
-    for stock in lst:
-        api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
+class AlpacaTrader(object):
+    def __init__(self):
+        # API authentication keys can be taken from the Alpaca dashboard.
+        # https://app.alpaca.markets/paper/dashboard/overview
+        self.key_id = API_KEY
+        self.secret_key = SECRET_KEY
+        self.base_url = 'https://paper-api.alpaca.markets'
+        self.account = api.get_account()
 
-def make_single_order(stock, qty=1):
-    api.submit_order(stock, qty=qty, side='buy', type='market', time_in_force='day')
+        # The symbol(s) we will be trading 
+        self.symbol = 'TSLA'
+        self.symbol_lst = []
 
+        # When this variable is not None, we have an order open
+        # self.current_order = None
 
-def make_03_position_order(sym):
-    last_price= api.get_latest_trade(sym).price
-    bal = float(account.last_equity)
-    print(bal)
-    qty = bal *.03 // last_price
-    position = int(api.get_position(sym).qty)
-     
-    api.submit_order(sym, qty, side='buy', type='market', time_in_force='day')
-    print(f"Balance was {bal} and you just placed a BUY order for {qty} shares of {sym}")
+        # The closing price of the last aggregate we saw
+        # self.last_price = api.get_latest_trade(self.symbol).price
 
-    # return print(api.list_orders(status='open', limit=1, nested=True))
+        # The connection to the Alpaca API
+        self.api = tradeapi.REST(
+            self.key_id,
+            self.secret_key,
+            self.base_url
+        )
+   # Get our starting position, in case we already have one open
+        try:
+            self.position = int(self.api.get_position(self.symbol).qty)
+        except:
+            # No position exists
+            self.position = 0
 
+        try:
+            self.balance = float(self.account.last_equity)
+        except:
+            self.balance = 0.00
+            
 
-def plot_sym(sym):
-    candlestick_fig = go.Figure(data=[go.Candlestick(x=sym.index,
-                                                     open=sym['open'],
-                                                     high=sym['high'],
-                                                     low=sym['low'],
-                                                     close=sym['close'])])
-    candlestick_fig.update_layout(
-        title="Candlestick chart for {0}".format(sym),
-        xaxis_title=start + ' ' + end,
-        yaxis_title="Price {0}".format(api.get_bars(sym, timeframe)))
-    candlestick_fig.show()
-    
-stockList = ['APPS','GE','RGF','TSLA']
+    def set_symbol(self,symbol):
+        self.symbol = symbol
 
-# Setting parameters before calling method
-symbol = "SPY"
-timeframe = "1year"
-start = "2022-01-01"
-end = "2022-04-05"
+    def get_symbol(self):
+        return print(self.symbol)
 
+    def set_symbol_lst(self,symbol_lst):
+        self.symbol_lst = symbol_lst
 
-spy_bars = api.get_bars(symbol, timeframe, start, end).df #datafrane from bars
+    def get_symbol_lst(self):
+        return print(self.symbol_lst)           
 
+    def nasdaq(self):
+        active_assets = api.list_assets(status='active')
+        # Filter the assets down to just those on NASDAQ.
+        nasdaq_assets = [a for a in active_assets if a.exchange == 'NASDAQ']
+        print(nasdaq_assets)
 
-# Retrieve daily bars for SPY in a dataframe and printing the first 5 rows
-print(spy_bars.head())
+    def is_tradeable(self):
+       
+        try:
+            for sym in self.symbol_lst:
+                asset = api.get_asset(sym)
+                try:
+                    if asset.tradable == True:
+                        print(f'We can trade {sym}.')
+                except:
+                    pass
 
+        except:
+            print('error')
+          
 
-opn = spy_bars['open']
-high=spy_bars['high']
-low=spy_bars['low'] 
-close=spy_bars['close']
+    def send_order(self, target_qty):
+        if self.position == 0:
+            api.submit_order(self.symbol, target_qty, side='buy', type='limit', time_in_force='gtc', limit_price=(int(self.last_price - self.last_price * .10)))
+            return print (f'made order {target_qty} of {self.symbol} at {int(self.last_price - self.last_price * .10)}')
+         
+    def postion_size(self):
+        self.last_price = api.get_latest_trade(self.symbol).price
+        target_qty = self.balance *.03 // self.last_price
+        self.send_order(target_qty)
 
-# print(opn)
-# print(high)
-# print(low)
-# print(close)
+    def todays_win_loss(self):
+        balance_change = float(self.account.equity) - float(self.account.last_equity)
+        print(f'Today\'s portfolio balance change: ${balance_change}')  
 
+    def buying_power(self):
+        return print(f'${self.account.buying_power} via margin and ${self.account.cash} is cash.')   
 
-# single = make_single_order('GOOG',25)
-# multi_gets_list = make_order(stockList,25)
-
-x = api.get_bars(symbol, timeframe, start, end).df
-plot_sym(x)
+    # def plot_sym(sym):
+    #     candlestick_fig = go.Figure(data=[go.Candlestick(x=sym.index,
+    #                                                     open=sym['open'],
+    #                                                     high=sym['high'],
+    #                                                     low=sym['low'],
+    #                                                     close=sym['close'])])
+    #     candlestick_fig.update_layout(
+    #         title="Candlestick chart for {0}".format(sym),
+    #         xaxis_title=start + ' ' + end,
+    #         yaxis_title="Price {0}".format(api.get_bars(sym, timeframe)))
+    #     candlestick_fig.show()
+           
+if __name__ == '__main__':
+    trader = AlpacaTrader()
+    trader.set_symbol('APPS')
+    # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
+ 
+    # trader.get_symbol()
+  
+    trader.postion_size()
+    # trader.todays_win_loss()
+    # trader.buying_power()
+    # trader.nasdaq()
+    # trader.get_symbol_lst()
+    # trader.is_tradeable()
