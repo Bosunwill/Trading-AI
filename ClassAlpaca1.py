@@ -91,6 +91,7 @@ class AlpacaTrader(object):
                 try:
                     if asset.tradable == True:
                         print(f'We can trade {sym}.')
+                        self.postion_size(sym)
                 except:
                     pass
 
@@ -134,9 +135,9 @@ if __name__ == '__main__':
  
     # trader.get_symbol()
   
-    trader.postion_size()
+    # trader.postion_size()
     # trader.todays_win_loss()
     # trader.buying_power()
     # trader.nasdaq()
     # trader.get_symbol_lst()
-    # trader.is_tradeable()
+    trader.is_tradeable()
