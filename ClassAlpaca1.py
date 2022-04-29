@@ -87,11 +87,16 @@ class AlpacaTrader(object):
        
         try:
             for sym in self.symbol_lst:
-                asset = api.get_asset(sym)
+                self.symbol = sym
+
                 try:
+                    asset = api.get_asset(sym)
+                
                     if asset.tradable == True:
+                        
                         print(f'We can trade {sym}.')
-                        self.postion_size(sym)
+                        self.postion_size()
+                    
                 except:
                     pass
 
@@ -130,8 +135,8 @@ class AlpacaTrader(object):
            
 if __name__ == '__main__':
     trader = AlpacaTrader()
-    trader.set_symbol('APPS')
-    # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
+    # trader.set_symbol('APPS')
+    trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
  
     # trader.get_symbol()
   
