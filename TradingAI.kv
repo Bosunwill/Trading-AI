@@ -1,0 +1,198 @@
+# Page-1
+<PageLayout>:
+    # GL
+    GridLayout:
+        # Grid Layout with grey background & 3 columns
+        canvas:
+            Color:
+                rgba: 80/255., 80/255., 80/255., 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        cols: 3
+        # height: self.minimum_height
+
+        # GL-1
+        GridLayout:
+            size_hint_y: 0.1
+            size_hint_x: 0.35
+            # size_hint_y: None
+            rows: 2
+
+            # GL-1-lbl1
+            Label:
+                text: ''
+            # GL-1-lbl2
+            Label:
+                text: 'Stock List'
+
+        # GL-2
+        GridLayout:
+            size_hint_y: 0.1
+            canvas:
+                Color:
+                    rgba: 200/255., 200/255., 200/255., 1
+                # Rectangle:
+                #     pos: self.width, self.height * 1.475
+                #     size: self.width, self.height*0.05
+            # size_hint_y: None
+            
+            # width: self.minimum_width
+            cols: 4
+
+            # GL-2-lbl1
+            Label:
+                text: 'Ticker'
+
+            # GL-2-lbl2
+            Label:
+                text: 'Price'
+
+            # GL-2-lbl3
+            Label:
+                text: 'Score'
+
+            # GL-2-lbl4
+            Label:
+                text: 'Buy/Sell'
+
+            # GL-2-lbl5
+            Label:
+                text: 'Ticker Value'
+
+            # GL-2-lbl6
+            Label:
+                text: 'Price Value'
+
+            # GL-2-lbl7
+            Label:
+                text: 'Score Value'
+
+            # GL-2-lbl8
+            Label:
+                text: 'Buy/Sell Value'
+
+        # GL-3
+        GridLayout:
+            size_hint_y: 0.1
+            size_hint_x: 0.35
+            # size_hint_y: None
+            rows: 2
+
+            # GL-3-lbl1
+            Label:
+                text: ''
+
+            # GL-4-lbl2
+            Label:
+                text: 'Watch List'
+        
+        # GL-4
+        GridLayout:
+            size_hint_x: 0.35
+            rows: 2
+
+            # GL-4-input
+            TextInput:
+                size_hint_y: 0.1
+                hint_text: 'Search'
+                multiline: False
+
+            # GL-4-scroll
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+
+                # GL-4-scroll-label(s)
+                Label:
+                    color: 0.5,0.5,0.5,1
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    padding: 10,10
+                    text: 'test\n'*100
+
+        # GL-5
+        GridLayout:
+            rows: 4
+
+            # GL-5-graph
+            Button:
+                text: 'Graph Placeholder'
+            
+            # GL-5-GL
+            GridLayout:
+                size_hint_y: 0.15
+                cols: 2
+            
+                # GL-5-GL-btn1
+                Button:
+                    text: 'Stocks to Buy'
+                
+                # GL-5-GL-btn2
+                Button:
+                    text: 'My Watchlist'
+
+
+            GridLayout:
+                size_hint_y: 0.15
+                cols: 4
+                    
+                # GL-5-scroll-GL-lbl1
+                Label:
+                    text: 'Ticker'
+
+                # GL-5-scroll-GL-lbl2
+                Label:
+                    text: 'Price'
+
+                # GL-5-scroll-GL-lbl3
+                Label:
+                    text: 'Score'
+
+                # GL-5-scroll-GL-lbl4
+                Label:
+                    text: 'Buy/Sell'
+
+            # GL-5-scroll
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+
+                Label:
+                    color: 0.5,0.5,0.5,1
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    padding: 10,10
+                    text: 'test |test |test |test \n'*100
+        
+        # GL-6
+        GridLayout:
+            size_hint_x: 0.35
+            rows: 2
+
+            # GL-6-scroll
+            ScrollView:
+                
+                # GL-6-scroll-label(s)
+                Label:
+                    color: 0.5,0.5,0.5,1
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    padding: 10,10
+                    text: 'test\n'*100
+            
+            # GL-6-GL
+            GridLayout:
+                size_hint_y: 0.15
+                rows: 2
+
+                # GL-6-GL-btn1
+                Button:
+                    text: 'Add to Watchlist'
+
+                # GL-6-GL-btn2
+                Button:
+                    text: 'Remove from Watchlist'
+
+
+                    
