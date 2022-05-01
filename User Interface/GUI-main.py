@@ -9,9 +9,7 @@ class MultipleLayout(PageLayout):
 
 class TradingAI(App):
     def build(self):
-
         return MultipleLayout()
-
 
 if __name__ == '__main__':
     TradingAI().run()

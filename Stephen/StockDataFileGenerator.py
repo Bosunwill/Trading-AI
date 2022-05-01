@@ -1,6 +1,5 @@
 ####           Program to Jehnerate local files containing data-sets needed for Training          ####
 ####  Information pulled from yfinance and processed using basic algorithm for market indicators  ####
-####          Written by Stephen Jehner for SD202-10546: Advanced Python Machine Learning         ####
 
 import yfinance as yf
 import numpy as np
@@ -19,6 +18,8 @@ def GenerateFile(tickers, dateRange, startDateTime):
     for day in range(dateRange):
         prevYear = currentYear
         currentDate = startDateTime - timedelta(days=day)
+        if currentDate.weekday() > 4:
+            continue
         currentYear = currentDate.strftime("%Y")
         fileName = f"DataSets\dataSet_{currentYear}.csv" #Creates a new file for each year to break file into bite-sized segments
         # Check if new year and make new file if so
@@ -43,11 +44,11 @@ def GenerateFile(tickers, dateRange, startDateTime):
                     frameSize = len(df.index) - 1
                     # Setting Preloop Variables
                     currentSum = 0
-                    openValue = float(df["Close"][-1])
+                    openValue = float(df["Open"][-2])
                     closeValue = float(df["Close"][-2])
-                    Change = openValue - closeValue
-                    support = df["Close"][-1]
-                    resistance = df["Close"][-1]
+                    Change = float(df["Close"][-1]) - float(df["Close"][-2])
+                    support = df["Close"][-2]
+                    resistance = df["Close"][-2]
                     smoothing = 2
                     avgGain = 0
                     avgLoss = 0
@@ -76,10 +77,10 @@ def GenerateFile(tickers, dateRange, startDateTime):
                     #Main Loop
                     for i in range(frameSize - 1):
                         #Find Resistance and Support points for periods of time
-                        if df["Low"][i] < support:
-                            support = df["Low"][-i]
-                        if df["High"][i] > resistance:
-                            resistance = df["High"][-i]
+                        if df["Low"][-(i + 1)] < support:
+                            support = df["Low"][-(i + 1)]
+                        if df["High"][-(i + 1)] > resistance:
+                            resistance = df["High"][-(i + 1)]
                         if i == 50:
                             _50DaySupport = support
                             _50DayResistance = resistance
@@ -93,7 +94,7 @@ def GenerateFile(tickers, dateRange, startDateTime):
                             _200DaySupport = support
                             _200DayResistance = resistance
                         # Find Exponetial Moving Average
-                        ema = (df["Close"][-i] * (smoothing / (1 + i))) + (ema * (1 - (smoothing / (1 + i))))
+                        ema = (df["Close"][-(i + 1)] * (smoothing / (1 + i))) + (ema * (1 - (smoothing / (1 + i))))
                         if i == 50: 
                             _50DayEma = ema
                         if i == 100:
@@ -226,7 +227,7 @@ def GetTickers():
             tickers.append(stock[0])
     return tickers
 
-dateRange = 7300 # Runs for 20 years or until there is not enough information to continue
+dateRange = 100 # Runs for 20 years or until there is not enough information to continue
 tickers = GetTickers()
 
 GenerateFile(tickers, dateRange, datetime.now().date())
