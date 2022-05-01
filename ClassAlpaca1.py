@@ -87,8 +87,9 @@ class AlpacaTrader(object):
        
         try:
             for sym in self.symbol_lst:
-                asset = api.get_asset(sym)
                 try:
+                    asset = api.get_asset(sym)
+                
                     if asset.tradable == True:
                         print(f'We can trade {sym}.')
                 except:
@@ -130,13 +131,13 @@ class AlpacaTrader(object):
 if __name__ == '__main__':
     trader = AlpacaTrader()
     trader.set_symbol('APPS')
-    # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
+    trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
  
     # trader.get_symbol()
   
-    trader.postion_size()
+    # trader.postion_size()
     # trader.todays_win_loss()
     # trader.buying_power()
     # trader.nasdaq()
-    # trader.get_symbol_lst()
-    # trader.is_tradeable()
+    trader.get_symbol_lst()
+    trader.is_tradeable()
