@@ -1,0 +1,8 @@
+John 	- Get equity
+	- Buy stocks
+	- Sell stocks
+
+Jhener	- Top 5
+	- Ticker, Closing Price, Predicted Change % & $
+	
+
