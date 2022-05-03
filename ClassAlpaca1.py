@@ -39,6 +39,7 @@ class AlpacaTrader(object):
         # The symbol(s) we will be trading 
         self.symbol = 'TSLA'
         self.symbol_lst = []
+        self.my_order_id = 10
 
         # When this variable is not None, we have an order open
         # self.current_order = None
@@ -63,7 +64,9 @@ class AlpacaTrader(object):
             self.balance = float(self.account.last_equity)
         except:
             self.balance = 0.00
-            
+
+    def get_my_order_id (self):
+        return print(self.my_order_id)
 
     def set_symbol(self,symbol):
         self.symbol = symbol
@@ -106,7 +109,17 @@ class AlpacaTrader(object):
 
     def send_order(self, target_qty):
         if self.position == 0:
-            api.submit_order(self.symbol, target_qty, side='buy', type='limit', time_in_force='gtc', limit_price=(int(self.last_price - self.last_price * .10)))
+            self.my_order_id +=1
+            api.submit_order(
+                symbol=self.symbol,
+                qty=target_qty,
+                side='buy',
+                type='market',
+                time_in_force='gtc',
+                client_order_id= (str(f'my_order_id-{self.my_order_id}'))
+            )
+            # api.submit_order(self.symbol, target_qty, side='buy', type='limit', time_in_force='gtc', limit_price=(int(self.last_price - self.last_price * .10)), client_order_id = self.my_order_id)
+            
             return print (f'made order {target_qty} of {self.symbol} at {int(self.last_price - self.last_price * .10)}')
          
     def postion_size(self):
@@ -121,28 +134,34 @@ class AlpacaTrader(object):
     def buying_power(self):
         return print(f'${self.account.buying_power} via margin and ${self.account.cash} is cash.')   
 
-    # def plot_sym(sym):
-    #     candlestick_fig = go.Figure(data=[go.Candlestick(x=sym.index,
-    #                                                     open=sym['open'],
-    #                                                     high=sym['high'],
-    #                                                     low=sym['low'],
-    #                                                     close=sym['close'])])
-    #     candlestick_fig.update_layout(
-    #         title="Candlestick chart for {0}".format(sym),
-    #         xaxis_title=start + ' ' + end,
-    #         yaxis_title="Price {0}".format(api.get_bars(sym, timeframe)))
-    #     candlestick_fig.show()
+    def get_order(self):
+        return (print( api.list_orders(
+        status='open',
+        limit=1,
+        nested=False  # show nested multi-leg orders
+        )))
+
+    def get_order_id(self):
+        return print(str(api.get_order_by_client_order_id('my_order_id-'+str(self.my_order_id))))
+
+    def cancel_order(self):
+        return print(api.cancel_order('my_order_id-'+str(self.my_order_id)))
+
+
+
+    def get_positions(self):
+        return print(api.list_positions())
+
            
 if __name__ == '__main__':
     trader = AlpacaTrader()
-    # trader.set_symbol('APPS')
-    trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
- 
+    # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
     # trader.get_symbol()
-  
     # trader.postion_size()
     # trader.todays_win_loss()
     # trader.buying_power()
     # trader.nasdaq()
-    # trader.get_symbol_lst()
-    trader.is_tradeable()
+    # trader.get_order_id()
+    trader.get_my_order_id()
+ 
+
