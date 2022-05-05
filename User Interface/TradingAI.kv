@@ -1,54 +1,41 @@
 # TradingAI.kv
 
 <EquityLabel>:
+    size_hint_y: .1
     size_hint_x: .5
-    text: 'Equity: <placeholder>'
 
 <PosListLabel>:
+    size_hint_y: .1
     size_hint_x: .5
     text: 'Positions List'
-        
+
 <GraphImage>:
     size_hint_x: .5
     text: '<graph placeholder>'
 
 <TopStocksGrid>:
     size_hint_x: .5
-    cols: 4
+    cols: 3
         
-    Label:
-        text: 'Ticker'
-    Label:
-        text: 'Price'
-    Label:
-        text: 'Score'
-    Label:
-        text: 'Buy/Sell'
+<GraphChartGrid>:
+    cols: 1
+    GraphImage:
+    TopStocksGrid:
 
 <PosGrid>:
     size_hint_x: .5
-    cols: 3
-    Label:
-        text: '<ticker placeholder>'
-    Button:
-        text: 'Buy'
-    Button:
-        text: 'Sell'
+    cols: 4
         
 
 <MultipleLayout>:
-    canvas:
-        Color:
-            rgba: 80/255., 80/255., 80/255., 1
-        Rectangle:
-            pos: self.pos
-            size: self.size
+    # canvas:
+    #     Color:
+    #         rgba: 80/255., 80/255., 80/255., 1
+    #     Rectangle:
+    #         pos: self.pos
+    #         size: self.size
     cols: 2
     EquityLabel:
     PosListLabel:
-    GraphImage:
-    Label:
-        text: ''
-    TopStocksGrid:
+    GraphChartGrid:
     PosGrid:
-
