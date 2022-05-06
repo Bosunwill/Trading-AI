@@ -1,4 +1,4 @@
-John 	- Get equity
+John 	- Get equity <-- done
 	- Buy stocks
 	- Sell stocks
 

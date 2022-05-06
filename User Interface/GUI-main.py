@@ -21,7 +21,8 @@ ticker4 = 'D'
 ticker5 = 'E'
 
 # Number of Tickers owned from John's API for top 5 tickers goes here
-ticker1Owned = 0
+pos1 =  trader.get_positions()
+ticker1Owned = pos1
 ticker2Owned = 0
 ticker3Owned = 0
 ticker4Owned = 0
@@ -177,3 +178,4 @@ class TradingAI(App):
 
 if __name__ == '__main__':
     TradingAI().run()
+    print(str(trader.get_positions()))
