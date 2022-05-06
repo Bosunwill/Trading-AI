@@ -3,13 +3,14 @@ from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
+import ClassAlpaca1 
 
 kivy.require('1.050.0')
 
 # Need Buy & Sell functions in all buttons for PosList
 
 # John's GetEquity() function goes here
-equity = 0
+equity = ClassAlpaca1.trader.buying_power()
 
 # Tickers from Steven's top 5 list goes here
 ticker1 = 'A'
