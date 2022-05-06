@@ -155,10 +155,17 @@ class AlpacaTrader(object):
         api.submit_order(symbol, qty=1,side='buy', type='market')
         
     
-    def get_positions(self):
+    def get_position1(self):
         assets = api.list_positions()
         symbols = [asset.symbol for asset in assets]
-        return  (symbols[-1])
+        return(symbols[0])
+         
+    def get_position2(self):
+       assets = api.list_positions()
+       symbols = [asset.symbol for asset in assets]
+       return(symbols[-1])
+
+
               
       
        
@@ -174,7 +181,7 @@ if __name__ == '__main__':
     # trader.nasdaq()
     # trader.get_order_id()
     # trader.get_my_order_id()
-    trader.get_positions()
+    trader.get_position1()
     # trader.basic_order('GE')
     # trader.cancel()
 

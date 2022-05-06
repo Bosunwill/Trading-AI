@@ -23,7 +23,8 @@ ticker5 = 'E'
 
 # Number of Tickers owned from John's API for top 5 tickers goes here
  
-ps = trader.get_positions()
+ps1 = trader.get_position1()
+ps2 = trader.get_position2()
  
 
 
@@ -31,8 +32,8 @@ ps = trader.get_positions()
 cancel = trader.cancel()
 
 
-ticker1Owned = 0
-ticker2Owned = ps
+ticker1Owned = ps1
+ticker2Owned = ps2
 ticker3Owned = 0
 ticker4Owned = 0
 ticker5Owned = 0
