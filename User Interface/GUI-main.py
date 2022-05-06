@@ -12,6 +12,7 @@ kivy.require('1.050.0')
 # John's GetEquity() function goes here
 trader = ClassAlpaca1.AlpacaTrader()
 equity = trader.account.cash
+buy = trader.postion_size()
 
 # Tickers from Steven's top 5 list goes here
 ticker1 = 'A'
@@ -179,3 +180,5 @@ class TradingAI(App):
 if __name__ == '__main__':
     TradingAI().run()
     print(str(trader.get_positions()))
+
+    
