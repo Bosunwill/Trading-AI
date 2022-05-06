@@ -175,6 +175,8 @@ class AlpacaTrader(object):
        symbols = [asset.qty for asset in assets]
        return (symbols[-1])
         
+    def sell_it(self,symbol):
+        sell = api.submit_order(symbol,qty=1,side='sell',type='market')
 
            
 if __name__ == '__main__':
@@ -191,6 +193,7 @@ if __name__ == '__main__':
     # trader.basic_order('GE')
     # trader.cancel()
     # trader.get_num_shares()
+    # trader.sell_it('GE')
 
  
 

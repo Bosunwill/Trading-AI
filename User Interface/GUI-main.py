@@ -22,7 +22,7 @@ ticker3 = 'C'
 ticker4 = 'D'
 ticker5 = 'E'
 
-# buy = trader.basic_order('GE') #needs a capital letter symbol and buys 1 share
+
 # cancel = trader.cancel()        #cancels all open orders
 
 # Number of Tickers owned from John's API for top 5 tickers goes here
@@ -56,7 +56,7 @@ class TopStocksGrid(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        tickerLbl = Label(size_hint_y = .05, text = 'Ticker')
+        tickerLbl = Label(size_hint_y = .05, text = 'Ticker')  # <--Stephens 
         priceLbl = Label(size_hint_y = .05, text = 'Price')
         scoreLbl = Label(size_hint_y = .05, text = 'Score')
         self.add_widget(tickerLbl)
@@ -110,15 +110,15 @@ class PosGrid(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        tickerLbl = Label(size_hint_y = .05, text = 'Ticker')
+        tickerLbl = Label(size_hint_y = .05, text = 'Ticker') #<--Johns
         ownedLbl = Label(size_hint_y = .05, text = '# Owned')
         fillLbl = Label(size_hint_y = .05, text = ' ')
         fillLbl2 = Label(size_hint_y = .05, text = ' ')
 
         tickerVal1 = Label(size_hint_y = .05, text = ticker1)
         ownedVal1 = Label(size_hint_y = .05, text = str(ticker1Owned))
-        buyBtn1 = Button(size_hint_y = .05, text = 'Buy')
-        sellBtn1 = Button(size_hint_y = .05, text = 'Sell')
+        buyBtn1 = Button(size_hint_y = .05, text = 'Buy') # buy = trader.basic_order(PS1) #needs a capital letter symbol and buys 1 share
+        sellBtn1 = Button(size_hint_y = .05, text = 'Sell') #sell = trader.sell_it(PS1,ticker1Owned)
 
         tickerVal2 = Label(size_hint_y = .05, text = ticker2)
         ownedVal2 = Label(size_hint_y = .05, text = str(ticker2Owned))
@@ -127,8 +127,8 @@ class PosGrid(GridLayout):
 
         tickerVal3 = Label(size_hint_y = .05, text = ticker3)
         ownedVal3 = Label(size_hint_y = .05, text = str(ticker3Owned))
-        buyBtn3 = Button(size_hint_y = .05, text = 'Buy')
-        sellBtn3 = Button(size_hint_y = .05, text = 'Sell')
+        buyBtn3 = Button(size_hint_y = .05, text = 'Buy') # buy = trader.basic_order(PS2) #needs a capital letter symbol and buys 1 share
+        sellBtn3 = Button(size_hint_y = .05, text = 'Sell') #sell = trader.sell_it(PS2,ticker2Owned)
 
         tickerVal4 = Label(size_hint_y = .05, text = ticker4)
         ownedVal4 = Label(size_hint_y = .05, text = str(ticker4Owned))
