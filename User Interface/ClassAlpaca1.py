@@ -129,7 +129,8 @@ class AlpacaTrader(object):
 
     def todays_win_loss(self):
         balance_change = float(self.account.equity) - float(self.account.last_equity)
-        print(f'Today\'s portfolio balance change: ${balance_change}')  
+        return (balance_change)
+        # print(f'Today\'s portfolio balance change: ${balance_change}')  
 
     def buying_power(self):
         return print(f'${self.account.buying_power} via margin and ${self.account.cash} is cash.')   
@@ -184,7 +185,7 @@ if __name__ == '__main__':
     # trader.set_symbol_lst(['OILU', 'LXU', 'CRGY', 'BPT', 'CHKEL', 'SGML', 'CHKEZ', 'AMR', 'ZETA', 'NRT', 'IPI', 'NRGV', 'CHKEW', 'AR', 'UAN'])
     # trader.get_symbol()
     # trader.postion_size()
-    # trader.todays_win_loss()
+    trader.todays_win_loss()
     # trader.buying_power()
     # trader.nasdaq()
     # trader.get_order_id()
@@ -194,6 +195,7 @@ if __name__ == '__main__':
     # trader.cancel()
     # trader.get_num_shares()
     # trader.sell_it('GE')
+
 
  
 

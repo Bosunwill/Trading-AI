@@ -12,6 +12,10 @@ kivy.require('1.050.0')
 # John's GetEquity() function goes here
 trader = ClassAlpaca1.AlpacaTrader()
 equity = trader.account.cash
+wins = trader.todays_win_loss()
+wins = int(wins)
+
+
 ps1 = trader.get_position1()
 ps2 = trader.get_position2()
 
@@ -37,7 +41,7 @@ class EquityLabel(Label):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.text = str(equity)
+        self.text = str(wins)+' '+ ' Todays win / loss'   #--str(equity)
 
 
 class PosListLabel(Label):
@@ -122,14 +126,14 @@ class PosGrid(GridLayout):
 
         tickerVal2 = Label(size_hint_y = .05, text = ticker2)
         ownedVal2 = Label(size_hint_y = .05, text = str(ticker2Owned))
-        buyBtn2 = Button(size_hint_y = .05, text = 'Buy')
-        sellBtn2 = Button(size_hint_y = .05, text = 'Sell')
+        buyBtn2 = Button(size_hint_y = .05, text = 'Buy') # buy = trader.basic_order(PS2) #needs a capital letter symbol and buys 1 share
+        sellBtn2 = Button(size_hint_y = .05, text = 'Sell') #sell = trader.sell_it(PS2,ticker2Owned)
+
 
         tickerVal3 = Label(size_hint_y = .05, text = ticker3)
         ownedVal3 = Label(size_hint_y = .05, text = str(ticker3Owned))
-        buyBtn3 = Button(size_hint_y = .05, text = 'Buy') # buy = trader.basic_order(PS2) #needs a capital letter symbol and buys 1 share
-        sellBtn3 = Button(size_hint_y = .05, text = 'Sell') #sell = trader.sell_it(PS2,ticker2Owned)
-
+        buyBtn3 = Button(size_hint_y = .05, text = 'Buy') 
+        sellBtn3 = Button(size_hint_y = .05, text = 'Sell') 
         tickerVal4 = Label(size_hint_y = .05, text = ticker4)
         ownedVal4 = Label(size_hint_y = .05, text = str(ticker4Owned))
         buyBtn4 = Button(size_hint_y = .05, text = 'Buy')
