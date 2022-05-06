@@ -165,10 +165,16 @@ class AlpacaTrader(object):
        symbols = [asset.symbol for asset in assets]
        return(symbols[-1])
 
+    def get_num_share1(self):
+       assets = api.list_positions()
+       symbols = [asset.qty for asset in assets]
+       return (symbols[0])
 
-              
-      
-       
+    def get_num_share2(self):
+       assets = api.list_positions()
+       symbols = [asset.qty for asset in assets]
+       return (symbols[-1])
+        
 
            
 if __name__ == '__main__':
@@ -181,9 +187,10 @@ if __name__ == '__main__':
     # trader.nasdaq()
     # trader.get_order_id()
     # trader.get_my_order_id()
-    trader.get_position1()
+    # trader.get_position1()
     # trader.basic_order('GE')
     # trader.cancel()
+    # trader.get_num_shares()
 
  
 

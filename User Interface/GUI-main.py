@@ -12,28 +12,26 @@ kivy.require('1.050.0')
 # John's GetEquity() function goes here
 trader = ClassAlpaca1.AlpacaTrader()
 equity = trader.account.cash
-
+ps1 = trader.get_position1()
+ps2 = trader.get_position2()
 
 # Tickers from Steven's top 5 list goes here
-ticker1 = 'A'
-ticker2 = 'B'
+ticker1 = ps1
+ticker2 = ps2
 ticker3 = 'C'
 ticker4 = 'D'
 ticker5 = 'E'
 
 # Number of Tickers owned from John's API for top 5 tickers goes here
  
-ps1 = trader.get_position1()
-ps2 = trader.get_position2()
- 
 
 
-# buy = trader.basic_order('GE')
-cancel = trader.cancel()
+# buy = trader.basic_order('GE') #needs a capital letter symbol and buys 1 share
+# cancel = trader.cancel()        #cancels all open orders
 
 
-ticker1Owned = ps1
-ticker2Owned = ps2
+ticker1Owned = trader.get_num_share1()
+ticker2Owned = trader.get_num_share2()
 ticker3Owned = 0
 ticker4Owned = 0
 ticker5Owned = 0
