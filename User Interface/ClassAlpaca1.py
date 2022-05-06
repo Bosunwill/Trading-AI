@@ -147,13 +147,21 @@ class AlpacaTrader(object):
     def cancel_order(self):
         return print(api.cancel_order('my_order_id-'+str(self.my_order_id)))
 
+    def cancel(self):
+        api.cancel_all_orders()
+        return print('cancelled all orders')
 
-
+    def basic_order(self,symbol):
+        api.submit_order(symbol, qty=1,side='buy', type='market')
+        
+    
     def get_positions(self):
         assets = api.list_positions()
         symbols = [asset.symbol for asset in assets]
-        return print(str(symbols[0]))
-        # return print(api.list_positions())
+        return  (symbols[-1])
+              
+      
+       
 
            
 if __name__ == '__main__':
@@ -167,6 +175,8 @@ if __name__ == '__main__':
     # trader.get_order_id()
     # trader.get_my_order_id()
     trader.get_positions()
+    # trader.basic_order('GE')
+    # trader.cancel()
 
  
 

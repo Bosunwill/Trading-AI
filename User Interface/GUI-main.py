@@ -12,7 +12,7 @@ kivy.require('1.050.0')
 # John's GetEquity() function goes here
 trader = ClassAlpaca1.AlpacaTrader()
 equity = trader.account.cash
-buy = trader.postion_size()
+
 
 # Tickers from Steven's top 5 list goes here
 ticker1 = 'A'
@@ -22,9 +22,17 @@ ticker4 = 'D'
 ticker5 = 'E'
 
 # Number of Tickers owned from John's API for top 5 tickers goes here
-pos1 =  trader.get_positions()
-ticker1Owned = pos1
-ticker2Owned = 0
+ 
+ps = trader.get_positions()
+ 
+
+
+# buy = trader.basic_order('GE')
+cancel = trader.cancel()
+
+
+ticker1Owned = 0
+ticker2Owned = ps
 ticker3Owned = 0
 ticker4Owned = 0
 ticker5Owned = 0
@@ -179,6 +187,6 @@ class TradingAI(App):
 
 if __name__ == '__main__':
     TradingAI().run()
-    print(str(trader.get_positions()))
+    
 
     
