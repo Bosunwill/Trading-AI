@@ -6,17 +6,24 @@ from kivy.uix.gridlayout import GridLayout
 
 kivy.require('1.050.0')
 
+# Loads the TF related functions
+from TFLoadAndFunctions import *
+
+
 # Need Buy & Sell functions in all buttons for PosList
 
 # John's GetEquity() function goes here
 equity = 0
 
-# Tickers from Steven's top 5 list goes here
-ticker1 = 'A'
-ticker2 = 'B'
-ticker3 = 'C'
-ticker4 = 'D'
-ticker5 = 'E'
+# Retrieves top 5 list from 'DailyList.csv'
+predictedTickers = RetrieveListFromFile('DailyList.csv')
+
+# Place Tickers into variables
+ticker1 = str(predictedTickers[0][0])
+ticker2 = str(predictedTickers[1][0])
+ticker3 = str(predictedTickers[2][0])
+ticker4 = str(predictedTickers[3][0])
+ticker5 = str(predictedTickers[4][0])
 
 # Number of Tickers owned from John's API for top 5 tickers goes here
 ticker1Owned = 0
