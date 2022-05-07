@@ -150,7 +150,7 @@ class AlpacaTrader(object):
 
 
     def get_positions(self):
-        return print(api.list_positions())
+        return api.list_positions()
 
            
 if __name__ == '__main__':
@@ -162,6 +162,9 @@ if __name__ == '__main__':
     # trader.buying_power()
     # trader.nasdaq()
     # trader.get_order_id()
-    trader.get_my_order_id()
+    # trader.get_my_order_id()
+    positionList = trader.get_positions()
+    print(positionList[0])
+    print(positionList[0].symbol)
  
 
