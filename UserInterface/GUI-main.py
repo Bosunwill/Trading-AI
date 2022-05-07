@@ -3,35 +3,25 @@ from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
-import ClassAlpaca1
+import ClassAlpaca1 
 
 kivy.require('1.050.0')
 
 # Need Buy & Sell functions in all buttons for PosList
 
 # John's GetEquity() function goes here
-trader = ClassAlpaca1.AlpacaTrader()
-equity = trader.account.cash
-wins = trader.todays_win_loss()
-wins = int(wins)
+equity = ClassAlpaca1.trader.buying_power()
 
-
-ps1 = trader.get_position1()
-ps2 = trader.get_position2()
-
-# Tickers from ?John's? top 5 list goes here
-ticker1 = ps1
-ticker2 = ps2
+# Tickers from Steven's top 5 list goes here
+ticker1 = 'A'
+ticker2 = 'B'
 ticker3 = 'C'
 ticker4 = 'D'
 ticker5 = 'E'
 
-
-# cancel = trader.cancel()        #cancels all open orders
-
 # Number of Tickers owned from John's API for top 5 tickers goes here
-ticker1Owned = trader.get_num_share1()
-ticker2Owned = trader.get_num_share2()
+ticker1Owned = 0
+ticker2Owned = 0
 ticker3Owned = 0
 ticker4Owned = 0
 ticker5Owned = 0
@@ -41,7 +31,7 @@ class EquityLabel(Label):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.text = str(wins)+' '+ ' Todays win / loss'   #--str(equity)
+        self.text = str(equity)
 
 
 class PosListLabel(Label):
@@ -60,7 +50,7 @@ class TopStocksGrid(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        tickerLbl = Label(size_hint_y = .05, text = 'Ticker')  # <--Stephens 
+        tickerLbl = Label(size_hint_y = .05, text = 'Ticker')
         priceLbl = Label(size_hint_y = .05, text = 'Price')
         scoreLbl = Label(size_hint_y = .05, text = 'Score')
         self.add_widget(tickerLbl)
@@ -114,26 +104,26 @@ class PosGrid(GridLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        tickerLbl = Label(size_hint_y = .05, text = 'Ticker') #<--Johns
+        tickerLbl = Label(size_hint_y = .05, text = 'Ticker')
         ownedLbl = Label(size_hint_y = .05, text = '# Owned')
         fillLbl = Label(size_hint_y = .05, text = ' ')
         fillLbl2 = Label(size_hint_y = .05, text = ' ')
 
         tickerVal1 = Label(size_hint_y = .05, text = ticker1)
         ownedVal1 = Label(size_hint_y = .05, text = str(ticker1Owned))
-        buyBtn1 = Button(size_hint_y = .05, text = 'Buy') # buy = trader.basic_order(PS1) #needs a capital letter symbol and buys 1 share
-        sellBtn1 = Button(size_hint_y = .05, text = 'Sell') #sell = trader.sell_it(PS1,ticker1Owned)
+        buyBtn1 = Button(size_hint_y = .05, text = 'Buy')
+        sellBtn1 = Button(size_hint_y = .05, text = 'Sell')
 
         tickerVal2 = Label(size_hint_y = .05, text = ticker2)
         ownedVal2 = Label(size_hint_y = .05, text = str(ticker2Owned))
-        buyBtn2 = Button(size_hint_y = .05, text = 'Buy') # buy = trader.basic_order(PS2) #needs a capital letter symbol and buys 1 share
-        sellBtn2 = Button(size_hint_y = .05, text = 'Sell') #sell = trader.sell_it(PS2,ticker2Owned)
-
+        buyBtn2 = Button(size_hint_y = .05, text = 'Buy')
+        sellBtn2 = Button(size_hint_y = .05, text = 'Sell')
 
         tickerVal3 = Label(size_hint_y = .05, text = ticker3)
         ownedVal3 = Label(size_hint_y = .05, text = str(ticker3Owned))
-        buyBtn3 = Button(size_hint_y = .05, text = 'Buy') 
-        sellBtn3 = Button(size_hint_y = .05, text = 'Sell') 
+        buyBtn3 = Button(size_hint_y = .05, text = 'Buy')
+        sellBtn3 = Button(size_hint_y = .05, text = 'Sell')
+
         tickerVal4 = Label(size_hint_y = .05, text = ticker4)
         ownedVal4 = Label(size_hint_y = .05, text = str(ticker4Owned))
         buyBtn4 = Button(size_hint_y = .05, text = 'Buy')
@@ -186,6 +176,3 @@ class TradingAI(App):
 
 if __name__ == '__main__':
     TradingAI().run()
-    
-
-    
