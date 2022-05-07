@@ -7,7 +7,7 @@ from kivy.uix.gridlayout import GridLayout
 kivy.require('1.050.0')
 
 # Loads the TF related functions
-from TFLoadAndFunctions import *
+from UserInterface.TFLoadAndFunctions import *
 
 
 # Need Buy & Sell functions in all buttons for PosList
@@ -16,7 +16,7 @@ from TFLoadAndFunctions import *
 equity = 0
 
 # Retrieves top 5 list from 'DailyList.csv'
-predictedTickers = RetrieveListFromFile('DailyList.csv')
+predictedTickers = RetrieveListFromFile('UserInterface/DailyList.csv')
 
 # Place Tickers into variables
 ticker1 = str(predictedTickers[0][0])
