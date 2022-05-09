@@ -22,6 +22,7 @@ trader = AlpacaTrader()
 # John's GetEquity() function goes here
 equity = trader.account.equity
 
+
 # Retrieves top 5 list from 'DailyList.csv'
 predictedTickers = RetrieveListFromFile('UserInterface/DailyList.csv')
 
@@ -64,7 +65,7 @@ qty5Owned = tickerOwnedList[4].qty if len(tickerOwnedList) > 4 else "N/A"
 class EquityLabel(Label):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.text = f"$ {equity}"
+        self.text = f"$ {equity} "
 
 
 class PosListLabel(Label):
@@ -144,8 +145,8 @@ class PosGrid(GridLayout):
 
         tickerVal1 = Label(size_hint_y = .05, text = ticker1Owned)
         ownedVal1 = Label(size_hint_y = .05, text = str(qty1Owned))
-        buyBtn1 = Button(size_hint_y = .05, text = 'Buy')
-        sellBtn1 = Button(size_hint_y = .05, text = 'Sell')
+        buyBtn1 = Button(size_hint_y = .05, text = 'Buy') # trader.quick_order(tickerVal1,ownedVal1)
+        sellBtn1 = Button(size_hint_y = .05, text = 'Sell') # trader.sell_it(tickerVal1,ownedVal1)
 
         tickerVal2 = Label(size_hint_y = .05, text = ticker2Owned)
         ownedVal2 = Label(size_hint_y = .05, text = str(qty2Owned))
